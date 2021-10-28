@@ -1,0 +1,34 @@
+---
+- name: Install apache and php
+  hosts: centos
+  become: yes
+  tasks:
+    - name: install apache
+      yum:
+        name: httpd
+        state: present
+    - name: install php modules
+      yum:
+        name:
+          - php 
+          - php-fpm 
+          - php-mysql 
+        state: present
+    - name: create info.php
+      copy:
+        dest: /var/www/html/info.php
+        content: |
+          <?php 
+          phpinfo(); 
+          ?> 
+          <?php 
+          phpinfo(); 
+          ?>
+      notify:
+        - Restart Apache
+  handlers:    
+    - name: Restart Apache
+      service:
+        name: httpd
+        enabled: yes
+        state: restarted 

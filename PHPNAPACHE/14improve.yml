@@ -1,0 +1,63 @@
+---
+- name: Install apache and php
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: fail on unsupported versions
+      fail:
+        msg: This playbook supports only centos 7 and ubuntu 20 distributions 
+      when: 
+        - ansible_facts['distribution'] != "Ubuntu"
+        - ansible_facts['distribution'] != "CentOS" 
+        - (ansible_facts['distribution'] == "Ubuntu" and  ansible_facts['distribution_major_version'] != "20") 
+        - (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] != "7")
+    - name: information about node and the variables loaded
+      debug:
+        msg: "Node os is {{ ansible_facts['distribution'] }}  package name is {{ package }} and the info location is  {{ info_location }}"
+        msg: "Node os is {{ ansible_facts['distribution'] }}  package name is {{ package }} and the info location is  {{ info_location }} and the php packages are {{ php_packages }}"
+    - name: install apache2
+      apt:
+        name: "{{ package }}"
+        update_cache: yes
+        state: present
+      when: 
+        - ansible_facts['distribution'] == "Ubuntu"
+        - ansible_facts['distribution_major_version'] == "20"
+    - name: install php modules
+      apt:
+        name: "{{ php_packages }}" 
+        state: present
+      when: 
+        - ansible_facts['distribution'] == "Ubuntu"
+        - ansible_facts['distribution_major_version'] == "20"
+    - name: install httpd
+      yum:
+        name: "{{ package }}"
+        state: present
+      when: 
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
+    - name: install httpd php modules
+      yum:
+        name: "{{ php_packages }}"
+        state: present
+      notify:
+        - Restart Apache
+      when: 
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
+    - name: create info.php
+      copy:
+        dest: "{{ info_location }}"
+        content: |
+          <?php 
+          phpinfo(); 
+          ?>
+      notify:
+        - Restart Apache
+  handlers:
+    - name: Restart Apache
+      service:
+        name: "{{ package }}"
+        enabled: yes
+        state: restarted

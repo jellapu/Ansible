@@ -1,0 +1,10 @@
+---
+ssh ansible@
+cd ansicblezone/tomcat9
+ansible-playbook -i hosts --syntax-check tomcat9.yml
+ansible-playbook -i hosts tomcat9.yml
+
+Exercise:
+
+Ensure when we execute ansible playbook to install tomcat on node where tomcat is already running the changed should be zero
+Try to make changes in this playbook to make it work on centos 7 (8)/RHEL 7 (8)
