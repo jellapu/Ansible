@@ -14,8 +14,6 @@
     - name: information about node and the variables loaded
       debug:
         msg: "Node os is {{ ansible_facts['distribution'] }}  package name is {{ package }} and the info location is  {{ info_location }} and the php packages are {{ php_packages }}"
-    - name: install apache2
-      apt:
     - name: install apache
       package:
         name: "{{ package }}"
@@ -25,7 +23,6 @@
         - ansible_facts['distribution'] == "Ubuntu"
         - ansible_facts['distribution_major_version'] == "20"
     - name: install php modules
-      apt:
       package:
         name: "{{ php_packages }}" 
       state: present
