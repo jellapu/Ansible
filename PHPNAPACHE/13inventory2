@@ -1,21 +1,19 @@
 [webserver]
-54.190.195.189 
-
-[webserver:vars]
-package="httpd"
-
+172.31.18.77  
+172.31.25.165  
 
 [dbserver]
-54.212.40.23
+172.31.25.165
 
 [ubuntu]
-54.190.195.189
+172.31.18.77
 localhost
 
 [centos]
-54.212.40.23
+172.31.25.165
 
 [appserver]
-54.212.40.23
+172.31.25.165
 localhost
+
 
