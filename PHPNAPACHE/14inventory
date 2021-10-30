@@ -4,7 +4,7 @@
 
 [webserver:vars]
 info_location=/var/www/html/info.php
-php_packages=
+
 [dbserver]
 172.31.25.165
 [ubuntu]
