@@ -20,12 +20,4 @@
         home: "{{ tomcat_home }}"
         shell: "{{ tomcat_shell }}"
         state: present 
-        state: present
-    - name: download the tomcat distribution
-      get_url:
-        url: "https://archive.apache.org/dist/tomcat/tomcat-9/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
-        dest: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
-    - name: untar the tomcat distribution
-      ansible.builtin.unarchive:
-        src: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
-        dest: "{{ tomcat_home }}"
+        
