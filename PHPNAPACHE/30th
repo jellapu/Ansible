@@ -1,0 +1,115 @@
+---
+Ansible collections:
+ collections is a distrubute format of roles and mosules
+
+
+We will create one Instance
+i.e.,
+Launch instance and then
+do this
+
+ssh -i .\ansible.pem ubuntu@public ip
+sudo apt get update
+sudo adduser ansible
+Create password:
+reneter:
+sudo vi /etc/ssh/sshd_config
+     passwordauthe yes
+sudo service sshd restart
+sudo visudo
+  ansible ALL=(ALL:All) NoPASSSWD:ALL
+su ansible
+passowrd:
+cd ~
+sudo apt update  # checking correctly
+ check install ansible in google
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible 
+ansible --version
+sudo vi /etc/ansible/hosts
+  localhost
+ssh-keygen
+ssh-copy-id ansible@localhost
+password:
+ansible -m ping all #config wrkng
+
+ssh ansible@ip
+ansible--version
+ansible-galaxy collection install community.mysql
+sudo apt install tree -y
+cd ~/.ansible/collections/ansible_collections/community/mysql/
+tree
+exit
+
+
+git repository:
+Ansible collections can be installed from git repository
+ansible-galaxy collection install git+<url>,<branch>
+
+
+ssh ansible@public ip
+password:
+ansible-galaxy collection install git+repo,main
+exit
+
+
+requirements.yml file:
+
+ansible galaxy -->serach mysql-->filter-->role
+will select girlinguy
+so we have to write file
+
+
+mkdir test
+cd test/
+vi requirements.yml
+---
+roles:
+- name: geerlingguy.mysql
+  version: 3.3.2
+
+collections:
+- name: geerlingguy.php_roles
+  version: 1.0.0
+  source: https://galaxy.ansible.com/
+- name: https://github.com/jellapu/Ansible.git
+  type: git
+  version: master
+ansible-galaxy install -r requiremnts.yml
+ansible-galaxy collection list
+
+vi collectiondemo.yaml
+--
+- hosts: all
+  become: yes
+  collections:
+    - geerlingguy.php_roles
+
+  roles:
+    - php
+ansible-playbook --syntax-check collectiondemo.yml
+ansible-playbook collectiondemo.yml
+
+Creating a collection skeleton:
+cd ~
+mkdir collections
+cd collections/
+ansible-galaxy collection init qt.tomcat
+ls
+tree
+
+Exercise: Try to copy our tomcat role in the roles folder and publish this whole folder to the new git repository and use from another playbook.
+
+
+
+
+
+
+
+
+
+
+
+
+ 
