@@ -1,0 +1,11 @@
+---
+- name: understanding usage of vault
+  hosts: all
+  vars:
+    username: tomcat
+  tasks:
+    - name: check if it works
+      ping:
+    - name: print value
+      debug:
+        var: username

@@ -1,0 +1,10 @@
+Ansible Dynamic Inventory:
+ Our inventory is really dynamic then only we use this process
+
+Ansible Parallelism:
+ Ansible establishes parallel connection with node which is called as fork.
+By default ansible uses 5 forks
+We can set the default number of forks in /etc/ansible/ansible.cfg file
+
+ansible-playbook -i hosts play.yml -f 100
+ansible -f 1 -m ping all

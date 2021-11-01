@@ -101,6 +101,76 @@ tree
 
 Exercise: Try to copy our tomcat role in the roles folder and publish this whole folder to the new git repository and use from another playbook.
 
+Ansible Vault:
+ While using Ansible, you may require to protect some confidential or secret information in playbooks, This may include
+SSH private and public keys
+passwords
+Storing sensitive information in plain text is not recommended.
+Ansible provides us with a feature known as Ansible Vault, which helps secure secret information.
+Ansible Vault can encrypt variables, entire files and YAML Playbooks
+
+ssh ansible@public ip
+password:
+mkdir vaultdemo
+cd vaultdemo/
+ansible-vault create mysecrets.yml
+passowrd: 
+reenter password:
+
+username: tomcat
+password: tomcat
+
+cat mysecrets.yml
+ansible-vault view mysecrets.yml
+ansible-vault edit mysecrets.yml
+password:
+#will change smthing like tomcat@123 at password
+cat mysecrets.yml
+ansible-vault view mysecrets.yml
+ansible-vault rekey mysecrets.yml
+cat home.txt
+vi home.txt
+This is file
+cat home.txt
+ansible-vault encrypt home.txt
+cat home.txt
+ansible-vault decrypt home.txt
+cat home.txt
+ansible-vault encrypt_string '<value to be encrypted>' --name '<variable name>'
+ansible-vault encrypt_string 'tomcat' --name 'username'
+
+cd vaultdemo/
+vi deploy.yml
+
+ansible-valult encrypt deploy.yml
+password:
+ansibleplaybook deploy.yml --ask-vault-pass
+password:
+cat deply.yml
+ansible-vault --help
+ansible-vault encrypt --help
+ansible-vault decrypt deploy.yml
+ansible-vault create --help
+vi password.txt
+
+this is password
+
+ansible-vault encrypt --help
+ansible-vault encrypt deploy.yml --vault-password-file passowrd.txt
+cat deploy.yml
+ansible-playbook deploy.yml vault-password-file password.txt
+
+
+Ansible with Windows:
+ we will see th video
+
+
+
+
+
+
+
+
 
 
 
